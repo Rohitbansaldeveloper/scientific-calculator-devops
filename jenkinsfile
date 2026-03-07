@@ -1,0 +1,54 @@
+pipeline {
+    agent any
+
+    stages {
+
+        stage('Clone Repo') {
+            steps {
+                git branch:'main',url: 'https://github.com/Rohitbansaldeveloper/scientific-calculator-devops.git'
+            }
+        }
+
+        stage('Build') {
+            steps {
+                sh 'g++ calculator.cpp -o calculator'
+            }
+        }
+
+        stage('Docker Build') {
+            steps {
+                sh 'docker build -t rohitbansal2113/calculator-app .'
+            }
+        }
+
+        stage('Docker Push') {
+            steps {
+                sh 'docker push rohitbansal2113/calculator-app'
+            }
+        }
+        stage('Deploy using Ansible') {
+            steps {
+                sh 'ansible-playbook ansible/deploy.yml -i ansible/inventory'
+            }
+        }
+    }
+
+    post {
+
+        success {
+            emailext(
+                subject: "Jenkins Build SUCCESS",
+                body: "Build successful! Scientific Calculator deployed successfully.",
+                to: "rohitbansal2113@gmail.com"
+            )
+        }
+
+        failure {
+            emailext(
+                subject: "Jenkins Build FAILED",
+                body: "Build failed! Please check Jenkins pipeline.",
+                to: "rohitbansal2113@gmail.com"
+            )
+        }
+    }
+}
