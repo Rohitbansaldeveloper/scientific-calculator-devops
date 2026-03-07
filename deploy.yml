@@ -1,0 +1,7 @@
+- hosts: localhost
+  tasks:
+    - name: Pull Docker Image
+      command: docker pull rohitbansal2113/calculator-app
+
+    - name: Run Container
+      command: docker run -d --name calculator-container rohitbansal2113/calculator-app

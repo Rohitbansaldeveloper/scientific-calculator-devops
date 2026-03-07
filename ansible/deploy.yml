@@ -1,0 +1,12 @@
+- hosts: localhost
+  become: yes
+
+  tasks:
+
+  - name: Pull Docker Image
+    docker_container:
+      name: calculator-container
+      image: username/calculator-app
+      state: started
+      tty: yes
+      interactive: yes
