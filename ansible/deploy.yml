@@ -1,12 +1,15 @@
-- hosts: localhost
-  become: yes
+- hosts: local
+  connection: local
+  become: false
 
   tasks:
+    - name: Pull Docker Image
+      command: docker pull rohitbansal2113/calculator-app
 
-  - name: Pull Docker Image
-    docker_container:
-      name: calculator-container
-      image: username/calculator-app
-      state: started
-      tty: yes
-      interactive: yes
+    - name: Remove old container
+      command: docker rm -f calculator-container
+      ignore_errors: yes
+
+    - name: Run Docker Container
+      command: docker run -d --name calculator-container rohitbansal2113/calculator-app
+
