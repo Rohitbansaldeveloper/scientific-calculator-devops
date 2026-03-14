@@ -36,19 +36,15 @@ pipeline {
     post {
 
         success {
-            emailext(
+            mail to: "rohitbansal2113@gmail.com",
                 subject: "Jenkins Build SUCCESS",
-                body: "Build successful! Scientific Calculator deployed successfully.",
-                to: "rohitbansal2113@gmail.com"
-            )
+                body: "Build successful! Scientific Calculator deployed successfully."
         }
 
         failure {
-            emailext(
-                subject: "Jenkins Build FAILED",
-                body: "Build failed! Please check Jenkins pipeline.",
-                to: "rohitbansal2113@gmail.com"
-            )
+            mail to: "rohitbansal2113@gmail.com",
+                subject: "Jenkins Build FAILURE",
+                body: "Build failed! Scientific Calculator deployment failed."
         }
     }
 }
