@@ -1,7 +1,17 @@
 - hosts: localhost
   tasks:
+
     - name: Pull Docker Image
       command: docker pull rohitbansal2113/calculator-app
 
+    - name: Stop old container
+      command: docker stop calculator-container
+      ignore_errors: yes
+
+    - name: Remove old container
+      command: docker rm calculator-container
+      ignore_errors: yes
+
     - name: Run Container
       command: docker run -d --name calculator-container rohitbansal2113/calculator-app
+
