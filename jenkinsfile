@@ -22,10 +22,21 @@ pipeline {
         }
 
         stage('Docker Push') {
-            steps {
-                sh 'docker push rohitbansal2113/calculator-app'
-            }
+           steps {
+            withCredentials([usernamePassword(
+            credentialsId: 'dockerhub-creds',
+            usernameVariable: 'DOCKER_USER',
+            passwordVariable: 'DOCKER_PASS'
+        )]) {
+
+            sh '''
+            echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin
+            docker push rohitbansal2113/calculator-app
+            '''
         }
+    }
+}
+
         stage('Deploy using Ansible') {
             steps {
                 sh 'ansible-playbook ansible/deploy.yml -i ansible/inventory'
