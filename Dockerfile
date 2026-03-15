@@ -8,5 +8,5 @@ COPY calculator.cpp .
 
 RUN g++ calculator.cpp -o calculator
 
-CMD ["sh", "-c", "./calculator && tail -f /dev/null"]
+CMD ["sh", "-c", "./calculator"]
 
