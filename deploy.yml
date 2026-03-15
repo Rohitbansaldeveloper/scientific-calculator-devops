@@ -13,5 +13,5 @@
       ignore_errors: yes
 
     - name: Run Container
-      command: docker run -d --name calculator-container rohitbansal2113/calculator-app
+      command: docker run -dit --name calculator-container rohitbansal2113/calculator-app
 
