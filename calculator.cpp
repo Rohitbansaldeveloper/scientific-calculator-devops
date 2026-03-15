@@ -11,7 +11,7 @@ int main(){
     int choice;
     double x,y;
 
-    // while(true){
+    while(true){
         cout<<"\nScientific Calculator\n";
         cout<<"1. Square Root\n";
         cout<<"2. Factorial\n";
@@ -48,7 +48,7 @@ int main(){
 
             case 5:
                 exit(0);
-        // }
+        }
     }
 }
 
